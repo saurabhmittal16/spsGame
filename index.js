@@ -3,6 +3,7 @@ const socket = require('socket.io');
 const app = express();
 
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/public/'));
 
 const port = process.env.PORT || 3100;
 
@@ -12,18 +13,18 @@ const server = app.listen(port, () => {
 
 const io = socket(server);
 
+const id1 = Math.floor(Math.random()*10000000)
+
 app.get('/', (req, res) => {
-    res.render('main.ejs', {
-        id1: '1'
-    });
+    res.redirect(`/${id1}`);
+})
+
+app.get('/:id', (req, res) => {
+    res.render('index.ejs')
 });
 
-
-app.get('/play', (req, res) => {
-    if (req.query.uid === "1")
-    {
-        res.send("Let's Play");
-    } else {
-        res.redirect('/');
-    }
+io.on('connect', (socket) => {
+    socket.on('chat', (data) => {
+        socket.broadcast.emit('chat', data);
+    })
 })
