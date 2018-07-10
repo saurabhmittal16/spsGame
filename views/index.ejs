@@ -1,24 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="/socket.io.dev.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
     <link rel="stylesheet" href="/style.css">
     <title>Chat</title>
 </head>
+
 <body>
     <h1>LET'S PLAY</h1>
-    <h3>Send this link to who you wish to talk - <span id="link"></span></h3>
-    <div id="chat">
-        <div id="chat-window">
-            <div id="output"></div>
-            <div id="feedback"></div>
-        </div>
-        <input type="text" id="message" placeholder="Message">
-        <button id="send">Send</button>
+    <h3>Send this link to the player -
+        <span id="link"></span>
+    </h3>
+    <div>
+        <span id="yourScoreSpan">0</span> -
+        <span id="theirScoreSpan">0</span>
     </div>
+    <div id="options">
+        <div class="option">Stone</div>
+        <div class="option">Paper</div>
+        <div class="option">Scissors</div>
+    </div>
+    <div id="resultBox" style="display: none">
+        <p>You chose ->
+            <span id="youChose"></span>
+        </p>
+        <p>They chose ->
+            <span id="theyChose"></span>
+        </p>
+        <p id="result"></p>
+        <button id="reset">Play Again</button>
+    </div>
+
     <script src="/play.js"></script>
 </body>
+
 </html>

@@ -24,7 +24,11 @@ app.get('/:id', (req, res) => {
 });
 
 io.on('connect', (socket) => {
-    socket.on('chat', (data) => {
-        socket.broadcast.emit('chat', data);
+    socket.on('choice', (data) => {
+        socket.broadcast.emit('option', data);
+    });
+
+    socket.on('again', (data) => {
+        socket.broadcast.emit('play', data);
     })
 })
