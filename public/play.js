@@ -1,7 +1,7 @@
 const socket = io.connect("https://mighty-mountain-17649.herokuapp.com/");
 
 const options = document.querySelectorAll('.option'),
-    link = document.querySelector('#link'),
+    link = document.querySelector('input'),
     resultBox = document.querySelector('#resultBox'),
     resultP = document.querySelector('#result'),
     youChose = document.querySelector('#youChose'),
@@ -19,7 +19,7 @@ let yourChoice = undefined,
     result = undefined,
     selected = undefined;
 
-link.innerHTML = window.location.href;
+link.value = window.location.href;
 const currUser = window.location.pathname.substr(1);
 
 options.forEach((option) => {
@@ -129,3 +129,8 @@ const findResult = (y, t) => {
         resultP.innerHTML = result;
     }
 }
+
+const copyLink = () => {
+    link.select();  
+    document.execCommand("copy");
+};

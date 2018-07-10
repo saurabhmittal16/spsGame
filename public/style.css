@@ -55,3 +55,9 @@ body {
 #reset {
     font-size: 2rem;
 }
+
+#link {
+    width: 60%;
+    font-size: 2rem;
+    text-align: center;
+}
