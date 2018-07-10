@@ -4,35 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
-    <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+    <title>SPS</title>
 </head>
 
 <body>
-    <h1>LET'S PLAY</h1>
-    <h3>Send this link to the player -
-        <span id="link"></span>
-    </h3>
-    <div>
-        <span id="yourScoreSpan">0</span> -
-        <span id="theirScoreSpan">0</span>
+
+    <div class="jumbotron" id="header">
+        <div class="container">
+            <h1 id="title">Stone Paper Scissors</h1>
+            <hr class="my-4">
+            <p>Send this link to the player -
+                <span id="link"></span>
+            </p>
+        </div>
+
     </div>
-    <div id="options">
-        <div class="option">Stone</div>
-        <div class="option">Paper</div>
-        <div class="option">Scissors</div>
-    </div>
-    <div id="resultBox" style="display: none">
-        <p>You chose ->
-            <span id="youChose"></span>
-        </p>
-        <p>They chose ->
-            <span id="theyChose"></span>
-        </p>
-        <p id="result"></p>
-        <button id="reset">Play Again</button>
+    <div class="container">
+        <div id="scoreboard"  style="display: flex; justify-content: space-between">
+            <div class="ele">
+                You -
+                <span id="yourScoreSpan">0</span>
+            </div>
+            <div>
+            </div>
+            <div class="ele">
+                <span id="theirScoreSpan">0</span>
+                - Them
+            </div>
+
+        </div>
+        <div id="options" style="display: flex; justify-content: space-between">
+            <div class="option">Stone</div>
+            <div class="option">Paper</div>
+            <div class="option">Scissors</div>
+        </div>
+        <div id="resultBox">
+            <p>You chose ->
+                <span id="youChose"></span>
+            </p>
+            <p>They chose ->
+                <span id="theyChose"></span>
+            </p>
+            <div id="result" class="alert" role="alert">
+                THEY WON
+            </div>
+            <button id="reset">Play Again</button>
+        </div>
     </div>
 
     <script src="/play.js"></script>

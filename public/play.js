@@ -1,6 +1,7 @@
 const socket = io.connect("https://mighty-mountain-17649.herokuapp.com/");
 
 const options = document.querySelectorAll('.option'),
+    link = document.querySelector('#link'),
     resultBox = document.querySelector('#resultBox'),
     resultP = document.querySelector('#result'),
     youChose = document.querySelector('#youChose'),
@@ -15,19 +16,22 @@ let yourChoice = undefined,
     theirChoice = undefined,
     theirScore = 0,
     theyPlayAgain = false,
-    result = undefined;
+    result = undefined,
+    selected = undefined;
 
 link.innerHTML = window.location.href;
 const currUser = window.location.pathname.substr(1);
 
 options.forEach((option) => {
-    option.addEventListener('click', (e) => {
+    option.addEventListener('click', function(e) {
         yourChoice = e.path[0].innerHTML.toLowerCase();
         socket.emit('choice', {
             choice: yourChoice,
             user: currUser
         })
         findResult(yourChoice, theirChoice);
+        selected = this;
+        this.style.border = "solid 1px black";
     });
 });
 
@@ -63,6 +67,7 @@ const reset = (y, t) => {
         playAgainBtn.innerHTML = "Play Again";
         youPlayAgain = false;
         theyPlayAgain = false;
+        selected.style.border = "solid 1px rgb(236, 179, 179)"
 
     }
 
