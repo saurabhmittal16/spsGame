@@ -1,4 +1,4 @@
-const socket = io.connect("http://localhost:3100");
+const socket = io.connect("https://mighty-mountain-17649.herokuapp.com/");
 
 const options = document.querySelectorAll('.option'),
     resultBox = document.querySelector('#resultBox'),
