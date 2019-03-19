@@ -3,7 +3,7 @@ import socketIOClient from 'socket.io-client'
 
 import '../style/bootstrap.min.css';
 import '../style/style.css';
-import url from '../config';
+import config from '../config';
 
 import Header from './Header';
 import Scoreboard from './Scoreboard';
@@ -53,7 +53,7 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            endpoint: url,
+            endpoint: config.server,
             partnerJoined: false,
             to: null,
             userID: null,

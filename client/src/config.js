@@ -1,1 +1,3 @@
-export default "http://localhost:5000"
+export default {
+    "server": "https://mysterious-beyond-36405.herokuapp.com/"
+}
