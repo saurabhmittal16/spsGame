@@ -46,13 +46,18 @@ io.on('connect', (socket) => {
         const {option, lobby, to} = data;
         if (lobbies[lobby].length === 2) {
             lobbies[lobby][to].emit('option', {
-                choice: data.option,
-                from: 1 - data.to
+                choice: option,
+                from: 1 - to
             });
         }
     });
 
     socket.on('again', (data) => {
-        socket.broadcast.emit('play', data);
+        const {lobby, to} = data;
+        if (lobbies[lobby].length === 2) {
+            lobbies[lobby][to].emit('play', {
+                from: 1 - to
+            });
+        }
     })
 })

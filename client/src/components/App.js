@@ -60,8 +60,11 @@ class App extends Component {
             theirScore: 0,
             yourChoice: null,
             theirChoice: null,
-            result: null
+            result: null,
+            youReady: false,
+            theyReady: false
         }
+        this.setReady = this.setReady.bind(this);
         this.setUser = this.setUser.bind(this);
         this.send = this.send.bind(this);
     }
@@ -83,6 +86,13 @@ class App extends Component {
                 theirChoice: data.choice
             });
             this.evaluateResult();
+        });
+
+        socket.on('play', data => {
+            this.setState({
+                theyReady: true
+            });
+            this.reset();
         });
     }
 
@@ -124,6 +134,31 @@ class App extends Component {
         });
     }
 
+    setReady() {
+        const socket = socketIOClient(this.state.endpoint);
+        this.setState({
+            youReady: true
+        }, () => {
+            socket.emit('again', {
+                lobby: this.state.userID,
+                to: this.state.to
+            });
+            this.reset();
+        });
+    }
+
+    reset() {
+        if (this.state.youReady && this.state.theyReady) {
+            this.setState({
+                yourChoice: null,
+                theirChoice: null,
+                result: null,
+                youReady: false,
+                theyReady: false
+            });
+        }
+    }
+
     render() {
         return (
             <div>
@@ -140,7 +175,7 @@ class App extends Component {
                                 this.state.theirChoice !== null && 
                                 this.state.yourChoice !== null && 
                                 this.state.result !== null && (
-                                    <Result {...this.state} />
+                                    <Result {...this.state} onReset={this.setReady} />
                                 )
                             }
                         </div>
