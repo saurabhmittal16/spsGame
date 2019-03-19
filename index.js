@@ -33,7 +33,7 @@ io.on('connect', (socket) => {
             lobbies[data] = new Array(1);
             lobbies[data][0] = socket;
         }
-        console.log(Object.keys(lobbies));
+        // console.log(Object.keys(lobbies));
     });
 
     socket.on('choice', (data) => {

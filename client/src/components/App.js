@@ -175,10 +175,14 @@ class App extends Component {
                             />
                             <Options send={this.send} dis={this.state.dis} />
                             {
-                                this.state.theirChoice !== null && 
-                                this.state.yourChoice !== null && 
-                                this.state.result !== null && (
-                                    <Result {...this.state} onReset={this.setReady} />
+                                this.state.dis && (
+                                    this.state.theirChoice !== null && 
+                                    this.state.yourChoice !== null && 
+                                    this.state.result !== null ? (
+                                        <Result {...this.state} onReset={this.setReady} />
+                                    ) : (
+                                        <p>Loading..</p>
+                                    )
                                 )
                             }
                         </div>
