@@ -1,14 +1,14 @@
 const express = require('express');
 const socket = require('socket.io');
+const cors = require('cors');
 const app = express();
 
-app.use(express.static(__dirname + '/public/'));
+const port = 5000;
 
-const port = process.env.PORT || 3100;
+app.use(cors());
 
-app.get('/', (req, res) => {
-    // send built react app on this route
-    res.send('hi');
+app.get('*', (req, res) => {
+    res.send('Use as API for socket backend');
 });
 
 const server = app.listen(port, () => {
@@ -21,7 +21,7 @@ const lobbies = {};
 
 io.on('connect', (socket) => {
     socket.on('new_connection', data => {
-        if (lobbies[data]) { 
+        if (lobbies[data]) {
             lobbies[data].push(socket);
             lobbies[data][0].emit('join_connection', {
                 to: 1
@@ -37,7 +37,7 @@ io.on('connect', (socket) => {
     });
 
     socket.on('choice', (data) => {
-        const {option, lobby, to} = data;
+        const { option, lobby, to } = data;
         if (lobbies[lobby].length === 2) {
             lobbies[lobby][to].emit('option', {
                 choice: option,
@@ -47,7 +47,7 @@ io.on('connect', (socket) => {
     });
 
     socket.on('again', (data) => {
-        const {lobby, to} = data;
+        const { lobby, to } = data;
         if (lobbies[lobby].length === 2) {
             lobbies[lobby][to].emit('play', {
                 from: 1 - to
