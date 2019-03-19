@@ -89,7 +89,7 @@ class App extends Component {
     setUser(id) {
         this.setState({
             userID: id
-        }, this.evaluateResult());
+        });
     }
 
     evaluateResult() {
