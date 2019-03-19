@@ -13,13 +13,14 @@ class Options extends React.Component {
             {
                 options.map(
                     (el, index) => (
-                        <div 
+                        <button 
                             key={el}
+                            onClick={() => this.props.send(index)}
                             className='option'
-                            onClick={() => this.props.send(index)} 
+                            disabled={this.props.dis}
                         >
                             {el}
-                        </div>
+                        </button>
                     )
                 )
             }

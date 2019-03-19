@@ -30,18 +30,19 @@ body {
     justify-content: space-between;
 }
 .option {
-    text-align: center;
     border: solid 1px rgb(236, 179, 179);
     border-radius: 50%;
-    padding-top: 5rem;
     min-width: 150px;
     min-height: 150px;
     cursor: pointer;
     background-color: black;
+    color: white;
 }
 
-.option:hover {
-    border: solid 1px rgb(43, 38, 38);
+.option:disabled {
+    border: none;
+    color: rgba(255, 255, 255, 0.733);
+    cursor: default;
 }
 
 #resultBox {
@@ -61,4 +62,12 @@ body {
     width: 60%;
     font-size: 2rem;
     text-align: center;
+}
+
+#yourScoreSpan {
+    margin-left: 10px;
+}
+
+#theirScoreSpan {
+    margin-right: 10px
 }

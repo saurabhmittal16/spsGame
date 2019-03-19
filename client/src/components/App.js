@@ -62,7 +62,8 @@ class App extends Component {
             theirChoice: null,
             result: null,
             youReady: false,
-            theyReady: false
+            theyReady: false,
+            dis: false
         }
         this.setReady = this.setReady.bind(this);
         this.setUser = this.setUser.bind(this);
@@ -123,7 +124,8 @@ class App extends Component {
     send(val) {
         const socket = socketIOClient(this.state.endpoint);
         this.setState({
-            yourChoice: val
+            yourChoice: val,
+            dis: true
         }, () => {
             socket.emit('choice', {
                 option: val,
@@ -154,7 +156,8 @@ class App extends Component {
                 theirChoice: null,
                 result: null,
                 youReady: false,
-                theyReady: false
+                theyReady: false,
+                dis: false
             });
         }
     }
@@ -170,7 +173,7 @@ class App extends Component {
                                 your={this.state.yourScore} 
                                 their={this.state.theirScore} 
                             />
-                            <Options send={this.send} />
+                            <Options send={this.send} dis={this.state.dis} />
                             {
                                 this.state.theirChoice !== null && 
                                 this.state.yourChoice !== null && 
