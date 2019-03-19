@@ -26,6 +26,8 @@ body {
 #options {
     margin-top: 3rem;
     margin-bottom: 6rem;
+    display: flex;
+    justify-content: space-between;
 }
 .option {
     text-align: center;
@@ -45,7 +47,6 @@ body {
 #resultBox {
     text-align: center;
     font-size: 2.5rem;
-    display: none;
 }
 
 #result {
