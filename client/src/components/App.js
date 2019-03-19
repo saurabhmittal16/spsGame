@@ -53,6 +53,8 @@ class App extends Component {
         super(props);
         this.state = {
             endpoint: "http://localhost:3100",
+            partnerJoined: false,
+            to: null,
             userID: null,
             yourScore: 0,
             theirScore: 0,
@@ -66,35 +68,46 @@ class App extends Component {
 
     componentDidMount() {
         const socket = socketIOClient(this.state.endpoint);
-        socket.on('option', (data) => {
-            console.log("Option", data);
-            if (data.user === this.state.userID) {
-                this.setState({
-                    theirChoice: data.choice
-                });
+        socket.emit('new_connection', window.location.pathname.substr(1));
 
-                if (this.state.yourChoice !== null) {
-                    let result = findResult(this.state.yourChoice, this.state.theirChoice);
-                    let y = this.state.yourScore;
-                    let t = this.state.theirScore;
-                    if (result === 1)
-                        y++;
-                    else if (result === 2)
-                        t++;
-                    this.setState({
-                        result: result,
-                        yourScore: y,
-                        theirScore: t
-                    });
-                }
-            }
-        })
+        socket.on('join_connection', (data) => {
+            console.log('Partner joined')
+            this.setState({
+                partnerJoined: true,
+                to: data.to
+            });
+        });
+
+        socket.on('option', data => {
+            this.setState({
+                theirChoice: data.choice
+            });
+            this.evaluateResult();
+        });
     }
 
     setUser(id) {
         this.setState({
             userID: id
-        });
+        }, this.evaluateResult());
+    }
+
+    evaluateResult() {
+        console.log(this.state);
+        if (this.state.yourChoice !== null && this.state.theirChoice !== null) {
+            let result = findResult(this.state.yourChoice, this.state.theirChoice);
+            let y = this.state.yourScore;
+            let t = this.state.theirScore;
+            if (result === 1)
+                y++;
+            else if (result === 2)
+                t++;
+            this.setState({
+                result: result,
+                yourScore: y,
+                theirScore: t
+            });
+        }
     }
 
     send(val) {
@@ -104,8 +117,10 @@ class App extends Component {
         }, () => {
             socket.emit('choice', {
                 option: val,
-                user: this.state.userID
+                lobby: this.state.userID,
+                to: this.state.to
             });
+            this.evaluateResult();
         });
     }
 
@@ -113,20 +128,26 @@ class App extends Component {
         return (
             <div>
                 <Header setUser={this.setUser} />
-                <div className="container">
-                    <Scoreboard 
-                        your={this.state.yourScore} 
-                        their={this.state.theirScore} 
-                    />
-                    <Options send={this.send} />
-                    {
-                        this.state.theirChoice !== null && 
-                        this.state.yourChoice !== null && 
-                        this.state.result !== null && (
-                            <Result {...this.state} />
-                        )
-                    }
-                </div>
+                {
+                    this.state.partnerJoined ? (
+                        <div className="container">
+                            <Scoreboard 
+                                your={this.state.yourScore} 
+                                their={this.state.theirScore} 
+                            />
+                            <Options send={this.send} />
+                            {
+                                this.state.theirChoice !== null && 
+                                this.state.yourChoice !== null && 
+                                this.state.result !== null && (
+                                    <Result {...this.state} />
+                                )
+                            }
+                        </div>
+                    ) : (
+                        <div style={{marginTop: '200px'}}>Waiting for partner to join...</div>
+                    )
+                }
             </div>
         );
     }

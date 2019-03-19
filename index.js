@@ -23,10 +23,33 @@ app.get('/:id', (req, res) => {
     res.render('index.ejs')
 });
 
+const lobbies = {};
+
 io.on('connect', (socket) => {
+    socket.on('new_connection', data => {
+        if (lobbies[data]) { 
+            lobbies[data].push(socket);
+            lobbies[data][0].emit('join_connection', {
+                to: 1
+            });
+            lobbies[data][1].emit('join_connection', {
+                to: 0
+            });
+        } else {
+            lobbies[data] = new Array(1);
+            lobbies[data][0] = socket;
+        }
+        console.log(Object.keys(lobbies));
+    });
+
     socket.on('choice', (data) => {
-        console.log(data);
-        socket.broadcast.emit('option', data);
+        const {option, lobby, to} = data;
+        if (lobbies[lobby].length === 2) {
+            lobbies[lobby][to].emit('option', {
+                choice: data.option,
+                from: 1 - data.to
+            });
+        }
     });
 
     socket.on('again', (data) => {
