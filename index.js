@@ -25,6 +25,7 @@ app.get('/:id', (req, res) => {
 
 io.on('connect', (socket) => {
     socket.on('choice', (data) => {
+        console.log(data);
         socket.broadcast.emit('option', data);
     });
 
