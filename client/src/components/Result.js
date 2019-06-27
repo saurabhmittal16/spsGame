@@ -21,10 +21,10 @@ const Result = (props) => {
     return (
         <div id="resultBox">
             <p>You chose ->
-                <span id="youChose">{choiceMap[props.yourChoice]}</span>
+                <span style={{marginLeft: '5px', fontWeight: '900'}} id="youChose">{choiceMap[props.yourChoice]}</span>
             </p>
             <p>They chose ->
-                <span id="theyChose">{choiceMap[props.theirChoice]}</span>
+                <span style={{marginLeft: '5px', fontWeight: '900'}} id="theyChose">{choiceMap[props.theirChoice]}</span>
             </p>
             <div id="result" className="alert" role="alert">
                 {resultMap[props.result]}

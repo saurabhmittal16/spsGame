@@ -8,4 +8,6 @@ A simple Stone Paper Scissors game where you pass the generated link to the othe
 2) Socket (socket.io)  
 3) Express
 
+![Screenshot](static/1.gif)
+
 Deployed at [link](http://sps-game.com.s3-website-us-east-1.amazonaws.com/QT1p0) and [API](https://mysterious-beyond-36405.herokuapp.com/)
