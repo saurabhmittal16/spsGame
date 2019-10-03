@@ -1,12 +1,12 @@
 # Stone Paper Scissors Game
 
-A simple Stone Paper Scissors game where you pass the generated link to the other player you wish to play with.  
+A simple Stone Paper Scissors game where you pass the generated link to the other player you wish to play with. It uses client to client connection protocol which uses websockets.
 
 ## Technologies Used  
 
-1) React
-2) Socket (socket.io)  
-3) Express
+1) React (For frontend)
+2) Socket (socket.io) (For establishing connection between clients) 
+3) Express (For setting up server)
 
 ![Screenshot](static/1.gif)
 
